@@ -7,7 +7,7 @@ function Navbar() {
       <Link href="/">
           <h1 className="font-bold">SSU Mess Feedback</h1>
       </Link>
-      <Link className="underline" href="/form/1">Give Feedback</Link>
+      <Link className="underline w-fit" href="/form/1">Give Feedback</Link>
     </div>
   )
 }
