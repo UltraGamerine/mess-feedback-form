@@ -74,10 +74,10 @@ export default function Form({ params: paramsPromise }) {
   }
 
   return (
-    <div className="flex px-10 flex-col h-[80vh] shadow-[rgba(0,0,15,0.5)_3px_3px_2px_0px] items-center pt-10 gap-4 border-2 border-slate-400 rounded-xl">
+    <div className="flex px-5 pb-10 flex-col shadow-[rgba(0,0,15,0.5)_3px_3px_2px_0px] items-center pt-10 gap-4 border-2 border-slate-400 rounded-xl">
       <h1 className="text-xl font-black-100">Form: {params.id}</h1>
-      <h1 className="text-black-600 text-xl">{date} | {time}</h1>
-      <h1 className="text-3xl text-violet-400 px-10">{greeting}</h1>
+      <h1 className="text-black-600 text-nowrap text-xl">{date} | {time}</h1>
+      <h1 className="text-3xl text-nowrap text-violet-400 px-10">{greeting}</h1>
       <MyForm id={params.id}/>
     </div>
   );

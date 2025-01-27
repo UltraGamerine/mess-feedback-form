@@ -8,6 +8,7 @@ export default function MyForm({ id }) {
   const [generalFeedback, setGeneralFeedback] = useState("");
   const [ratings, setRatings] = useState({ item1: 0, item2: 0, item3: 0 });
   const [submitted, setSubmitted] = useState(false);
+  const foodItems = ["Aloo Gobi", "Yellow Daal", "Roti"];
 
   const handleRatingChange = (item, value) => {
     setRatings({ ...ratings, [item]: value });
@@ -36,7 +37,7 @@ export default function MyForm({ id }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 p-6 bg-white rounded shadow-md max-w-md"
+      className="flex flex-col gap-4 p-6 bg-white rounded shadow-md lg:w-[400px] max-w-[500px] min-w-[300px]"
     >
       <h2 className="text-lg font-bold">General Feedback</h2>
       <textarea
@@ -47,23 +48,27 @@ export default function MyForm({ id }) {
       />
 
       <h2 className="text-lg font-bold">Rate Food Items</h2>
-      {["item1", "item2", "item3"].map((item) => (
-        <div key={item} className="flex items-center gap-2">
-          <label>{`Food Item ${item.split("item")[1]}:`}</label>
-          {[1, 2, 3, 4, 5].map((star) => (
-            <button
-              key={star}
-              type="button"
-              onClick={() => handleRatingChange(item, star)}
-              className={`text-xl ${
-                ratings[item] >= star ? "text-yellow-500" : "text-gray-400"
-              }`}
-            >
-              ★
-            </button>
-          ))}
-        </div>
-      ))}
+      <div className="flex flex-col gap-4">
+        {foodItems.map((item) => (
+          <div key={item} className="flex justify-between items-center">
+            <span>{item}</span>
+            <div className="flex gap-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  onClick={() => handleRatingChange(item, star)}
+                  className={`text-xl ${
+                    ratings[item] >= star ? "text-yellow-500" : "text-gray-400"
+                  }`}
+                >
+                  ★
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
 
       <button
         type="submit"
