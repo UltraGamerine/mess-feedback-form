@@ -37,7 +37,7 @@ export default function Form({ params: paramsPromise }) {
       } else if (currMinutes >= eveningStart && currMinutes <= eveningEnd) {
         return "Good Evening!";
       } else {
-        return "Hello, Feedback Form will be available soon.";
+        return "Hi! Feedback Form will be available soon...";
       }
     };
 
@@ -74,9 +74,9 @@ export default function Form({ params: paramsPromise }) {
   }
 
   return (
-    <div className="flex flex-col h-[80vh] items-center pt-10 gap-4 border-2 border-slate-400 rounded-xl">
+    <div className="flex flex-col h-[80vh] shadow-[rgba(0,0,15,0.5)_3px_3px_2px_0px] items-center pt-10 gap-4 border-2 border-slate-400 rounded-xl">
       <h1 className="text-black-600 text-xl">{date} | {time}</h1>
-      <h1 className="text-3xl text-violet-400 px-10">{greeting}</h1>
+      <h1 className="text-2xl text-violet-400 px-10">{greeting}</h1>
       <h1 className="text-3xl font-bold">Form: {params.id}</h1>
     </div>
   );
