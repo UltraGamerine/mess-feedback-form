@@ -5,7 +5,7 @@ export default async function Form({params}){
     return (
         <>
             <h1 className="text-3xl font-bold">
-            Product: {id}
+            Form: {id}
             </h1>
         </>
     )
