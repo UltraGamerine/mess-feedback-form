@@ -15,6 +15,3 @@ You can start editing the page by modifying `app/page.js`.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) & [Geist](https://vercel.com/font)
 
-## Learn More
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
