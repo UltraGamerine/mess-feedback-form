@@ -37,7 +37,7 @@ export default function Form({ params: paramsPromise }) {
       } else if (currMinutes >= eveningStart && currMinutes <= eveningEnd) {
         return "Good Evening!";
       } else {
-        return "Hello, Form will be Available Soon...";
+        return "Hello, Feedback Form will be Available Soon...";
       }
     };
 
@@ -64,7 +64,7 @@ export default function Form({ params: paramsPromise }) {
       setTime(timeFormatter.format(now)); // Update formatted time
       setDate(dateFormatter.format(now)); // Update formatted date
       setGreeting(calculateGreeting()); // Update greeting
-    }, 1000);
+    },1000);
 
     return () => clearInterval(interval); // Clean up on component unmount
   }, [paramsPromise]);
@@ -76,7 +76,7 @@ export default function Form({ params: paramsPromise }) {
   return (
     <div className="flex flex-col h-[80vh] items-center pt-10 gap-4 bg-gray-200">
       <h1 className="text-black-600 text-xl">{date} | {time}</h1>
-      <h1 className="text-3xl text-violet-400">{greeting}</h1>
+      <h1 className="text-3xl text-violet-400 px-10">{greeting}</h1>
       <h1 className="text-3xl font-bold">Form: {params.id}</h1>
     </div>
   );
