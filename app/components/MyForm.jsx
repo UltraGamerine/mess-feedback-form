@@ -49,10 +49,14 @@ export default function MyForm({ id }) {
 
       <h2 className="text-lg font-bold">Rate Food Items</h2>
       <div className="flex flex-col gap-4">
+
         {foodItems.map((item) => (
+
           <div key={item} className="flex justify-between items-center">
             <span>{item}</span>
+
             <div className="flex gap-2">
+              
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
@@ -65,9 +69,11 @@ export default function MyForm({ id }) {
                   ★
                 </button>
               ))}
+
             </div>
           </div>
         ))}
+
       </div>
 
       <button
