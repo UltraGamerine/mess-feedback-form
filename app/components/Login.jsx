@@ -40,7 +40,6 @@ export default function Login() {
     await signOut(auth);
     router.push("/"); // Redirect to login page after sign-out
   };
-
   return (
       <div className="flex justify-center items-center p-4 flex-col border rounded shadow-md max-w-md">
         <h2 className="text-2xl font-semibold mb-4">Login</h2>
