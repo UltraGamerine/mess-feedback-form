@@ -1,10 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { auth } from "@/firebase/firebase";
+import { CheckCircle } from "lucide-react";
 
 function Navbar() {
   const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,25 +24,19 @@ function Navbar() {
     const now = new Date(new Date().toLocaleString("en-US", options));
     const currMinutes = now.getHours() * 60 + now.getMinutes();
 
-    // Define time intervals in minutes
-    const breakfastStart = 7 * 60 + 45; // 7:45 AM
-    const breakfastEnd = 10 * 60 + 30; // 10:30 AM
+    // Define meal times
+    const meals = [
+      { name: "breakfast", start: 7 * 60 + 45, end: 10 * 60 + 30 },
+      { name: "lunch", start: 12 * 60 + 45, end: 15 * 60 },
+      { name: "dinner", start: 19 * 60 + 45, end: 22 * 60 + 30 },
+    ];
 
-    const lunchStart = 12 * 60 + 45; // 12:45 PM
-    const lunchEnd = 15 * 60; // 3:00 PM
-
-    const dinnerStart = 19 * 60 + 45; // 7:45 PM
-    const dinnerEnd = 22 * 60 + 30; // 10:30 PM
-
-    let meal;
-    if (currMinutes >= breakfastStart && currMinutes <= breakfastEnd) {
-      meal = "breakfast";
-    } else if (currMinutes >= lunchStart && currMinutes <= lunchEnd) {
-      meal = "lunch";
-    } else if (currMinutes >= dinnerStart && currMinutes <= dinnerEnd) {
-      meal = "dinner";
-    } else {
-      meal = "other"; // Outside meal times
+    let meal = "other";
+    for (const m of meals) {
+      if (currMinutes >= m.start && currMinutes <= m.end) {
+        meal = m.name;
+        break;
+      }
     }
 
     const date = now.toISOString().split("T")[0];
@@ -46,12 +51,19 @@ function Navbar() {
         <h1 className="font-bold">SSU Mess Feedback</h1>
       </Link>
 
+      {user && 
+        <span>
+        <CheckCircle className="text-green-500 w-6 h-6" />
+        </span>
+      }
+
       <button
-        className="bg-black text-white py-2 px-4 rounded-md text-nowrap"
+        className="bg-black text-sm text-white py-2 px-4 rounded-md text-nowrap"
         onClick={handleSubmit}
       >
         Give Feedback
       </button>
+
     </div>
   );
 }

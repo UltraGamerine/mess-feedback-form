@@ -1,13 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth, provider, signInWithPopup, signOut } from "@/firebase/firebase";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
+
+  // Check if the user is already signed in
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Handle Google Sign-In
   const handleSignIn = async () => {
@@ -15,20 +24,16 @@ export default function Login() {
     setError(null);
 
     try {
-      // Trigger Google Sign-In popup
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+      const signedInUser = result.user;
 
       // Validate email domain
-      if (!user.email.endsWith("@srisriuniversity.edu.in")) {
+      if (!signedInUser.email.endsWith("@srisriuniversity.edu.in")) {
         throw new Error("Only university email addresses are allowed.");
       }
 
-      // You can access user information here (e.g. user.uid, user.email)
-      console.log(user);
-
-      // Redirect after successful login
-      router.push("/"); // Redirect to your dashboard or home page
+      setUser(signedInUser); // Update state with user info
+      router.push("/"); // Redirect to homepage
     } catch (err) {
       setError(err.message);
     }
@@ -38,12 +43,16 @@ export default function Login() {
   // Handle Sign Out
   const handleSignOut = async () => {
     await signOut(auth);
-    router.push("/"); // Redirect to login page after sign-out
+    setUser(null);
+    router.push("/"); // Redirect to login page
   };
+
   return (
-      <div className="flex justify-center items-center p-4 flex-col border rounded shadow-md max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">Login</h2>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+    <div className="flex justify-center items-center p-4 flex-col border rounded shadow-md max-w-md mt-6">
+      {!user ? <p className="text-sm font-semibold mb-4">Use University Email ID</p> : null}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+
+      {!user ? (
         <button
           onClick={handleSignIn}
           disabled={loading}
@@ -51,14 +60,14 @@ export default function Login() {
         >
           {loading ? "Signing in..." : "Sign in with Google"}
         </button>
-
-        {/* Sign out button for testing purposes */}
+      ) : (
         <button
           onClick={handleSignOut}
           className="bg-white text-black border-2 border-gray-500 py-2 px-4 text-lg rounded w-full mt-4"
         >
           Sign Out
         </button>
-      </div>
+      )}
+    </div>
   );
 }
