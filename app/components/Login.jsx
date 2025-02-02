@@ -47,7 +47,7 @@ export default function Login() {
         <button
           onClick={handleSignIn}
           disabled={loading}
-          className="bg-blue-500 text-white py-2 text-lg px-4 rounded w-full"
+          className="text-white bg-gray-500 py-2 text-lg px-4 rounded w-full"
         >
           {loading ? "Signing in..." : "Sign in with Google"}
         </button>
@@ -55,7 +55,7 @@ export default function Login() {
         {/* Sign out button for testing purposes */}
         <button
           onClick={handleSignOut}
-          className="bg-red-500 text-white py-2 px-4 text-lg rounded w-full mt-4"
+          className="bg-white text-black border-2 border-gray-500 py-2 px-4 text-lg rounded w-full mt-4"
         >
           Sign Out
         </button>
