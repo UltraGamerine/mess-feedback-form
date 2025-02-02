@@ -37,7 +37,7 @@ export default function MyForm({ id }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 p-6 bg-white rounded shadow-md lg:w-[400px] max-w-[500px] min-w-[300px]"
+      className="flex flex-col gap-4 p-6 bg-white rounded lg:w-[400px] max-w-[500px] min-w-[300px]"
     >
       <h2 className="text-lg font-bold">General Feedback</h2>
       <textarea
